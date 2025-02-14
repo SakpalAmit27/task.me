@@ -1,5 +1,7 @@
 import { useState } from "react"
 
+// as mentioned , a component to add the task //
+
 
 const AddTodo = ({setTodos}) => {
 
@@ -10,6 +12,11 @@ const AddTodo = ({setTodos}) => {
 
   const addTask = () => {
     if(task.trim() === "") return; // this will prevent empty todo // 
+
+
+    setTodos(prevTodos => [...prevTodos,task])
+
+    setTask("") // clears the input //
   }
   return (
     <div>
