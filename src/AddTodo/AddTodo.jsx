@@ -1,6 +1,6 @@
 
 
-const AddTodo = () => {
+const AddTodo = (props) => {
   return (
     <div>
       AddTodo Component

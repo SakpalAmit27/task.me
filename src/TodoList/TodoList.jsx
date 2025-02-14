@@ -1,6 +1,6 @@
 
 
-const TodoList = () => {
+const TodoList = (props) => {
   return (
     <div>
       this is a todoList component
