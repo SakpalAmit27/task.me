@@ -20,7 +20,14 @@ const AddTodo = ({setTodos}) => {
   }
   return (
     <div>
-      AddTodo Component
+      <input
+      type="text"
+      value={task}
+      onChange={(i) => setTask(i.target.value)} 
+      
+      />
+
+      <button onClick={addTask}>task.me</button>
     </div>
   )
 }
