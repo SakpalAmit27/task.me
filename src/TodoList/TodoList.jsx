@@ -1,9 +1,17 @@
 
 
-const TodoList = ({todo,setTodo}) => { // destructuring the props // 
+const TodoList = ({todos,setTodos}) => { // destructuring the props // 
+
+    // as mentioned it is for displaying the list // 
+
   return (
     <div>
-      this is a todoList component
+        {/*Displaying the todo */}
+        {todos.map((todos,i) => (
+          <div key={i}>
+            {todos}
+          </div>
+        ))}
     </div>
   )
 }
