@@ -1,52 +1,49 @@
-import { useState } from "react"
+import { useState } from "react";
 
+const TodoList = ({ todos, setTodos }) => {
+  const [selectedIndex, editSelectedIndex] = useState(null);
+  const [selectedText, editSelectedText] = useState("");
 
-const TodoList = ({todos,setTodos}) => { // destructuring the props // 
+  const handleEdit = (text, index_of_list) => {
+    editSelectedText(text);
+    editSelectedIndex(index_of_list);
+  };
 
-    // as mentioned it is for displaying the list // 
+  const handleUpdate = () => {
+    const updatedList = todos.map((text, index) =>
+      index === selectedIndex ? selectedText : text
+    );
 
-
-    // -- preparing for update operation's -- // 
-
-
-    const [editIndex,setEditIndex] = useState(null); 
-    const [editText , setEditText] = useState('');
-
-    const handle_edit = (index,text) => {
-      setEditIndex(index);
-      setEditText(text);
-    }
-
-
-    const handle_save = () => {
-
-      const updatedTodo = todos.map((item,index) => (
-
-        index === editIndex ? editIndex : item
-      ));
-
-
-      setTodos(updatedTodo);
-
-      setEditIndex(null) 
-
-      setEditIndex('');
-    }
-
-
-
-    
+    setTodos(updatedList);
+    editSelectedIndex(null);
+    editSelectedText("");
+  };
 
   return (
     <div>
-        {/*Displaying the todo */}
-        {todos. map((todos,i) => (
-          <div key={i}>
-            {todos}
-          </div>
-        ))}
+      {todos.map((list, index_of_the_list) => (
+        <div key={index_of_the_list}>
+          {selectedIndex === index_of_the_list ? (
+            <>
+              <input
+                type="text"
+                value={selectedText}
+                onChange={(e) => editSelectedText(e.target.value)}
+              />
+              <button onClick={handleUpdate}>Save</button>
+            </>
+          ) : (
+            <>
+              {list}
+              <button onClick={() => handleEdit(list, index_of_the_list)}>
+                Edit
+              </button>
+            </>
+          )}
+        </div>
+      ))}
     </div>
-  )
-}
+  );
+};
 
-export default TodoList
+export default TodoList;
