@@ -1,8 +1,18 @@
+import { useState } from "react"
 
 
 const TodoList = ({todos,setTodos}) => { // destructuring the props // 
 
     // as mentioned it is for displaying the list // 
+
+
+    // -- preparing for update operation's -- // 
+
+
+    const [editIndex,setEditIndex] = useState(null); 
+    const [editText , setEditText] = useState('');
+
+    
 
   return (
     <div>
