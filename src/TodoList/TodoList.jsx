@@ -12,12 +12,17 @@ const TodoList = ({todos,setTodos}) => { // destructuring the props //
     const [editIndex,setEditIndex] = useState(null); 
     const [editText , setEditText] = useState('');
 
+    const handle_edit = (index,text) => {
+      setEditIndex(index);
+      setEditText(text);
+    }
+
     
 
   return (
     <div>
         {/*Displaying the todo */}
-        {todos.map((todos,i) => (
+        {todos. map((todos,i) => (
           <div key={i}>
             {todos}
           </div>
