@@ -17,6 +17,24 @@ const TodoList = ({todos,setTodos}) => { // destructuring the props //
       setEditText(text);
     }
 
+
+    const handle_save = () => {
+
+      const updatedTodo = todos.map((item,index) => (
+
+        index === editIndex ? editIndex : item
+      ));
+
+
+      setTodos(updatedTodo);
+
+      setEditIndex(null) 
+
+      setEditIndex('');
+    }
+
+
+
     
 
   return (
