@@ -46,7 +46,9 @@ const TodoList = ({ todos, setTodos }) => {
               <button onClick={() => handleEdit(list, index_of_the_list)}>
                 Edit
               </button>
-              
+
+              <button onClick={() => handleDelete(index_of_the_list)}>Delete</button>
+
             </>
           )}
         </div>
