@@ -19,6 +19,14 @@ const TodoList = ({ todos, setTodos }) => {
     editSelectedText("");
   };
 
+
+  const handleDelete = (index_to_delete) => {
+
+    const updatedList = todos.filter((_,index) => index != index_to_delete);
+
+
+    setTodos(updatedList);
+  }
   return (
     <div>
       {todos.map((list, index_of_the_list) => (
@@ -38,6 +46,7 @@ const TodoList = ({ todos, setTodos }) => {
               <button onClick={() => handleEdit(list, index_of_the_list)}>
                 Edit
               </button>
+              
             </>
           )}
         </div>
