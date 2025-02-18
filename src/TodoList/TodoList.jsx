@@ -1,60 +1,52 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const TodoList = ({ todos, setTodos }) => {
-  const [selectedIndex, editSelectedIndex] = useState(null);
-  const [selectedText, editSelectedText] = useState("");
+const TodoApp = () => {
+    // Initialize from localStorage
+    const [todos, setTodos] = useState(() => {
+        const saved = localStorage.getItem("todos");
+        return saved ? JSON.parse(saved) : [];
+    });
+    const [input, setInput] = useState("");
 
-  const handleEdit = (text, index_of_list) => {
-    editSelectedText(text);
-    editSelectedIndex(index_of_list);
-  };
+    // Add new todo
+    const handleAdd = () => {
+        if (!input.trim()) return;
+        const updated = [...todos, input];
+        setTodos(updated);
+        setInput("");
+    };
 
-  const handleUpdate = () => {
-    const updatedList = todos.map((text, index) =>
-      index === selectedIndex ? selectedText : text
-    );
+    // Save to localStorage on todos change
+    useEffect(() => {
+        localStorage.setItem("todos", JSON.stringify(todos));
+    }, [todos]);
 
-    setTodos(updatedList);
-    editSelectedIndex(null);
-    editSelectedText("");
-  };
-
-
-  const handleDelete = (index_to_delete) => {
-
-    const updatedList = todos.filter((_,index) => index != index_to_delete);
+    // Delete a todo
+    const handleDelete = (index) => {
+        const updated = todos.filter((_, i) => i !== index);
+        setTodos(updated);
+    };
 
 
-    setTodos(updatedList);
-  }
-  return (
-    <div>
-      {todos.map((list, index_of_the_list) => (
-        <div key={index_of_the_list}>
-          {selectedIndex === index_of_the_list ? (
-            <>
-              <input
+    return (
+        <div>
+            <input
                 type="text"
-                value={selectedText}
-                onChange={(e) => editSelectedText(e.target.value)}
-              />
-              <button onClick={handleUpdate}>Save</button>
-            </>
-          ) : (
-            <>
-              {list}
-              <button onClick={() => handleEdit(list, index_of_the_list)}>
-                Edit
-              </button>
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+            />
+            <button onClick={handleAdd}>Add</button>
 
-              <button onClick={() => handleDelete(index_of_the_list)}>Delete</button>
-
-            </>
-          )}
+            <ul>
+                {todos.map((todo, index) => (
+                    <li key={index}>
+                        {todo}
+                        <button onClick={() => handleDelete(index)}>Delete</button>
+                    </li>
+                ))}
+            </ul>
         </div>
-      ))}
-    </div>
-  );
+    );
 };
 
-export default TodoList;
+export default TodoApp;
